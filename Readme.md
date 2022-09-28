@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Kirill Ananyev](https://up.htmlacademy.ru/javascript/27/user/1765683).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Бабченко](https://up.htmlacademy.ru/profession/react/11/javascript/27/user/619357).
 
 ---
 
