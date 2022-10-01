@@ -11,3 +11,4 @@ const getRandomInteger = (min, max, exp) => {
 
   return randomNumber.toFixed(exp);
 };
+getRandomInteger();
