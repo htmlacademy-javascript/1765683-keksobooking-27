@@ -1,8 +1,4 @@
-const getRandomInteger = (min, max, exp) => {
-  if (typeof min !== 'number' || typeof max !== 'number') {
-    return NaN;
-  }
-
+const getRandomNumber = (min = 0, max = 10, exp = 0) => {
   if (min < 0 || min > max) {
     return NaN;
   }
@@ -11,3 +7,5 @@ const getRandomInteger = (min, max, exp) => {
 
   return randomNumber.toFixed(exp);
 };
+
+getRandomNumber();
