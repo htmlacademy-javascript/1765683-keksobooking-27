@@ -31,15 +31,27 @@ const getRandomNumber = (min = 0, max = 10, exp = 0) => {
 // ]
 // };
 //
-const getAuthor = () => ({});
+const getAuthor = () => ({
+  avatar: img/avatars/user/{getRandomNumber(1, 10)}.png,
+});
 
 const getOffer = () => ({
   title: 'Найдите свой приют',
   adress: (location.lat, location.lng),
   price: getRandomNumber(1000, 2500),
-  type: ('palace, flat, house, bungalow, hotel'),
+  type: 'palace, flat, house, bungalow, hotel',
   rooms: getRandomNumber(1, 4),
   guests: getRandomNumber(1, 6),
+  checkin: '12:00, 13:00, 14:00',
+  checkout: '12:00, 13:00, 14:00',
+  features: Array.from(
+    'wifi, dishwasher, parking, washer, elevator, conditioner'
+  ),
+  photos: Array.from(
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+  ),
 });
 
 const getLocation = () => ({
