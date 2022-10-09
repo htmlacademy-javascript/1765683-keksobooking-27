@@ -33,7 +33,14 @@ const getRandomNumber = (min = 0, max = 10, exp = 0) => {
 //
 const getAuthor = () => ({});
 
-const getOffer = () => ({});
+const getOffer = () => ({
+  title: 'Найдите свой приют',
+  adress: (location.lat, location.lng),
+  price: getRandomNumber(1000, 2500),
+  type: ('palace, flat, house, bungalow, hotel'),
+  rooms: getRandomNumber(1, 4),
+  guests: getRandomNumber(1, 6),
+});
 
 const getLocation = () => ({
   lat: getRandomNumber(35.65, 35.7, 5),
