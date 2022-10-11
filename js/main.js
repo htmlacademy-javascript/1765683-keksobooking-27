@@ -23,44 +23,52 @@ const DESCRIPTIONS = [
 
 const CHECK_TIMES = ['12:00', '13:00', '14:00'];
 
-const PRICE = {
-  min: 1000,
-  max: 2500,
+const Price = {
+  MIN: 1000,
+  MAX: 2500,
 };
-const ROOM = {
-  min: 1,
-  max: 4,
+const Room = {
+  MIN: 1,
+  MAX: 4,
 };
-const GUEST = {
-  min: 1,
-  max: 6,
+const Guest = {
+  MIN: 1,
+  MAX: 6,
 };
-const AVATAR_ID = {
-  min: 1,
-  max: 20,
-};
-
-const LOCATION_LAT = {
-  min: 35.65,
-  max: 35.7,
+const AvatarId = {
+  MIN: 1,
+  MAX: 20,
 };
 
-const LOCATION_LNG = {
-  min: 139.7,
-  max: 139.8,
+const LocationLat = {
+  MIN: 35.65,
+  MAX: 35.7,
+  DEGREES: 5,
 };
 
-const DIGIT = 5;
+const LocationLng = {
+  MIN: 139.7,
+  MAX: 139.8,
+  DEGREES: 5,
+};
+
 const ARRAY_LENGTH = 10;
 
-const AVATAR = {
-  length: 2,
-  text: '0',
+const Avatar = {
+  LENGTH: 2,
+  TEXT: '0',
 };
 
-const RANDOM_MAX_NUMBER = 10;
-
-const getRandomNumber = (min = 0, max = RANDOM_MAX_NUMBER, exp = 0) => {
+const DefaultNumber = {
+  MIN: 0,
+  MAX: 10,
+  EXP: 0,
+};
+const getRandomNumber = (
+  min = DefaultNumber.MIN,
+  max = DefaultNumber.MAX,
+  exp = DefaultNumber.EXP
+) => {
   if (min < 0 || min > max) {
     return NaN;
   }
@@ -73,20 +81,22 @@ const getRandomNumber = (min = 0, max = RANDOM_MAX_NUMBER, exp = 0) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
+const getRandomArray = () => {};
+
 const getAuthor = () => ({
   avatar: `img/avatars/user${getRandomNumber(
-    AVATAR_ID.min,
-    AVATAR_ID.max
-  ).padStart(AVATAR.length, AVATAR.text)}.png`,
+    AvatarId.MIN,
+    AvatarId.MAX
+  ).padStart(Avatar.length, Avatar.text)}.png`,
 });
 
 const getOffer = (location = { lat: 0, lng: 0 }) => ({
   title: 'Найдите свой приют',
   address: `${location.lat}, ${location.lng}`,
-  price: getRandomNumber(PRICE.min, PRICE.max),
+  price: getRandomNumber(Price.MIN, Price.MAX),
   type: getRandomArrayElement(HOUSE_TYPES),
-  rooms: getRandomNumber(ROOM.min, ROOM.max),
-  guests: getRandomNumber(GUEST.min, GUEST.max),
+  rooms: getRandomNumber(Room.MIN, Room.MAX),
+  guests: getRandomNumber(Guest.MIN, Guest.MAX),
   checkin: getRandomArrayElement(CHECK_TIMES),
   checkout: getRandomArrayElement(CHECK_TIMES),
   features: getRandomArrayElement(HOUSE_FEATURES),
@@ -95,8 +105,8 @@ const getOffer = (location = { lat: 0, lng: 0 }) => ({
 });
 
 const getLocation = () => ({
-  lat: getRandomNumber(LOCATION_LAT.min, LOCATION_LAT.max, DIGIT),
-  lng: getRandomNumber(LOCATION_LNG.min, LOCATION_LNG.max, DIGIT),
+  lat: getRandomNumber(LocationLat.MIN, LocationLat.MAX, LocationLat.DEGREES),
+  lng: getRandomNumber(LocationLng.MIN, LocationLng.MAX, LocationLng.DEGREES),
 });
 
 const getApiItem = () => {
@@ -111,3 +121,5 @@ const getApiItem = () => {
 
 const getApiArray = () => [Array.from({ length: ARRAY_LENGTH }, getApiItem)];
 getApiArray();
+getRandomArray();
+getArrayValue();
