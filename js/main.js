@@ -122,4 +122,4 @@ const getApiItem = () => {
 const getApiArray = () => [Array.from({ length: ARRAY_LENGTH }, getApiItem)];
 getApiArray();
 getRandomArray();
-getArrayValue();
+console.dir(JSON.stringify(getApiArray()));
