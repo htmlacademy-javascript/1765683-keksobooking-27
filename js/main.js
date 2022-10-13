@@ -35,10 +35,6 @@ const Guest = {
   MIN: 1,
   MAX: 6,
 };
-const AvatarId = {
-  MIN: 1,
-  MAX: 20,
-};
 
 const LocationLat = {
   MIN: 35.65,
@@ -64,6 +60,9 @@ const DefaultNumber = {
   MAX: 10,
   EXP: 0,
 };
+
+const MAX_ARRAY_LENGTH = 20;
+
 const getRandomNumber = (
   min = DefaultNumber.MIN,
   max = DefaultNumber.MAX,
@@ -81,14 +80,34 @@ const getRandomNumber = (
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-const getRandomArray = () => {};
+const getRandomUniqArray = (array) =>
+  array.reduce((acc, item) => {
+    const isAdd = Math.floor(getRandomNumber(0, 1));
 
-const getAuthor = () => ({
-  avatar: `img/avatars/user${getRandomNumber(
-    AvatarId.MIN,
-    AvatarId.MAX
-  ).padStart(Avatar.length, Avatar.text)}.png`,
-});
+    if (isAdd) {
+      return [...acc, item];
+    }
+
+    return acc;
+  }, []);
+
+const getRandomArray = (elements) => {
+  const arrayLength = Math.floor(
+    getRandomNumber(DefaultNumber.MIN, MAX_ARRAY_LENGTH)
+  );
+
+  return Array.from({ length: arrayLength }, () =>
+    getRandomArrayElement(elements)
+  );
+};
+
+const getAuthor = (index) => {
+  const id = (index + 1).toFixed(0).padStart(Avatar.LENGTH, Avatar.TEXT);
+
+  return {
+    avatar: `img/avatars/user${id}.png`,
+  };
+};
 
 const getOffer = (location = { lat: 0, lng: 0 }) => ({
   title: 'Найдите свой приют',
@@ -99,9 +118,9 @@ const getOffer = (location = { lat: 0, lng: 0 }) => ({
   guests: getRandomNumber(Guest.MIN, Guest.MAX),
   checkin: getRandomArrayElement(CHECK_TIMES),
   checkout: getRandomArrayElement(CHECK_TIMES),
-  features: getRandomArrayElement(HOUSE_FEATURES),
+  features: getRandomUniqArray(HOUSE_FEATURES),
   description: getRandomArrayElement(DESCRIPTIONS),
-  photos: getRandomArrayElement(PHOTOS),
+  photos: getRandomArray(PHOTOS),
 });
 
 const getLocation = () => ({
@@ -109,17 +128,15 @@ const getLocation = () => ({
   lng: getRandomNumber(LocationLng.MIN, LocationLng.MAX, LocationLng.DEGREES),
 });
 
-const getApiItem = () => {
+const getApiItem = (_, index) => {
   const location = getLocation();
 
   return {
-    author: getAuthor(),
+    author: getAuthor(index),
     offer: getOffer(location),
     location,
   };
 };
 
-const getApiArray = () => [Array.from({ length: ARRAY_LENGTH }, getApiItem)];
+const getApiArray = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
 getApiArray();
-getRandomArray();
-console.dir(JSON.stringify(getApiArray()));
