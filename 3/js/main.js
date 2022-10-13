@@ -15,26 +15,59 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const DESCRIPTIONS = [
+  'Стандартный однокомнатный номер, чаще всего с прихожей, санузлом и балконом. Номер категории Стандарт можно встретить в отелях с небольшим количеством звезд. Размер комнаты в среднем составляет 16-22 кв. м. и предназначен в основном для проживания одного или двух гостей.',
+  'Улучшенный номер, который отличается метражом. Такая категория номера в основном имеет схожие признаки со стандартным, но он выполнен в более изысканном дизайне, с применением более качественной отделки, современной техники и стильной мебели.',
+  'Компактный номер, в котором гостиная совмещена с кухней. Такой тип жилья напоминает квартиры-студии. В нем имеется всё необходимое для проживания: кровать, кухонный уголок с плитой и посудой. Площадь номера не превышает 20 кв.м., что вполне комфортно для проживания 1-2 человек.',
+];
+
 const CHECK_TIMES = ['12:00', '13:00', '14:00'];
 
-const MIN_PRICE = 1000;
-const MAX_PRICE = 2500;
-const MIN_ROOM = 1;
-const MAX_ROOM = 4;
-const MIN_GUEST = 1;
-const MAX_GUEST = 6;
-const MIN_AVATAR_ID = 1;
-const MAX_AVATAR_ID = 20;
-const MIN_LAT = 35.65;
-const MAX_LAT = 35.7;
-const MIN_LNG = 139.7;
-const MAX_LNG = 139.8;
-const DIGIT = 5;
-const ARRAY_LENGTH = 10;
-const AVATAR_TARGET_LENGTH = 2;
-const AVATAR_PAD_TEXT = '0';
+const Price = {
+  MIN: 1000,
+  MAX: 2500,
+};
+const Room = {
+  MIN: 1,
+  MAX: 4,
+};
+const Guest = {
+  MIN: 1,
+  MAX: 6,
+};
 
-const getRandomNumber = (min = 0, max = 10, exp = 0) => {
+const LocationLat = {
+  MIN: 35.65,
+  MAX: 35.7,
+  DEGREES: 5,
+};
+
+const LocationLng = {
+  MIN: 139.7,
+  MAX: 139.8,
+  DEGREES: 5,
+};
+
+const ARRAY_LENGTH = 10;
+
+const Avatar = {
+  LENGTH: 2,
+  TEXT: '0',
+};
+
+const DefaultNumber = {
+  MIN: 0,
+  MAX: 10,
+  EXP: 0,
+};
+
+const MAX_ARRAY_LENGTH = 20;
+
+const getRandomNumber = (
+  min = DefaultNumber.MIN,
+  max = DefaultNumber.MAX,
+  exp = DefaultNumber.EXP
+) => {
   if (min < 0 || min > max) {
     return NaN;
   }
@@ -47,41 +80,63 @@ const getRandomNumber = (min = 0, max = 10, exp = 0) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-const getAuthor = () => ({
-  avatar: `img/avatars/user${getRandomNumber(
-    MIN_AVATAR_ID,
-    MAX_AVATAR_ID
-  ).padStart(AVATAR_TARGET_LENGTH, AVATAR_PAD_TEXT)}.png`,
-});
+const getRandomUniqArray = (array) =>
+  array.reduce((acc, item) => {
+    const isAdd = Math.floor(getRandomNumber(0, 1));
+
+    if (isAdd) {
+      return [...acc, item];
+    }
+
+    return acc;
+  }, []);
+
+const getRandomArray = (elements) => {
+  const arrayLength = Math.floor(
+    getRandomNumber(DefaultNumber.MIN, MAX_ARRAY_LENGTH)
+  );
+
+  return Array.from({ length: arrayLength }, () =>
+    getRandomArrayElement(elements)
+  );
+};
+
+const getAuthor = (index) => {
+  const id = (index + 1).toFixed(0).padStart(Avatar.LENGTH, Avatar.TEXT);
+
+  return {
+    avatar: `img/avatars/user${id}.png`,
+  };
+};
 
 const getOffer = (location = { lat: 0, lng: 0 }) => ({
   title: 'Найдите свой приют',
   address: `${location.lat}, ${location.lng}`,
-  price: getRandomNumber(MIN_PRICE, MAX_PRICE),
+  price: getRandomNumber(Price.MIN, Price.MAX),
   type: getRandomArrayElement(HOUSE_TYPES),
-  rooms: getRandomNumber(MIN_ROOM, MAX_ROOM),
-  guests: getRandomNumber(MIN_GUEST, MAX_GUEST),
+  rooms: getRandomNumber(Room.MIN, Room.MAX),
+  guests: getRandomNumber(Guest.MIN, Guest.MAX),
   checkin: getRandomArrayElement(CHECK_TIMES),
   checkout: getRandomArrayElement(CHECK_TIMES),
-  features: getRandomArrayElement(HOUSE_FEATURES),
-  description: '',
-  photos: getRandomArrayElement(PHOTOS),
+  features: getRandomUniqArray(HOUSE_FEATURES),
+  description: getRandomArrayElement(DESCRIPTIONS),
+  photos: getRandomArray(PHOTOS),
 });
 
 const getLocation = () => ({
-  lat: getRandomNumber(MIN_LAT, MAX_LAT, DIGIT),
-  lng: getRandomNumber(MIN_LNG, MAX_LNG, DIGIT),
+  lat: getRandomNumber(LocationLat.MIN, LocationLat.MAX, LocationLat.DEGREES),
+  lng: getRandomNumber(LocationLng.MIN, LocationLng.MAX, LocationLng.DEGREES),
 });
 
-const getApiItem = () => {
+const getApiItem = (_, index) => {
   const location = getLocation();
 
   return {
-    author: getAuthor(),
+    author: getAuthor(index),
     offer: getOffer(location),
     location,
   };
 };
 
-const getApiArray = () => [Array.from({ length: ARRAY_LENGTH }, getApiItem)];
+const getApiArray = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
 getApiArray();
