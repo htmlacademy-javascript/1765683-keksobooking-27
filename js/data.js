@@ -124,3 +124,5 @@ const getApiItem = (_, index) => {
 
 const getApiArray = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
 getApiArray();
+
+export { getApiItem, getApiArray };
