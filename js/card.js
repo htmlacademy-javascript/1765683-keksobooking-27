@@ -1,4 +1,4 @@
-import { getApiArray } from './data';
+import { getApiArray } from './data.js';
 
 const cardTemplate = document
   .querySelector('#card')
@@ -20,8 +20,9 @@ const renderDescription = (cardElement, description) => {
   const descriptionElement = cardElement.querySelector('.popup__description');
   if (description && description.length) {
     descriptionElement.textContent = description;
+  } else {
+    descriptionElement.remove();
   }
-  descriptionElement.remove();
 };
 
 const createPhoto = (photo, title) => {
@@ -42,46 +43,47 @@ const renderPhoto = (cardElement, photos, title) => {
       const photoElement = createPhoto(photo, title);
       photoList.append(photoElement);
     });
+  } else {
+    photoList.remove();
   }
-  photoList.remove();
 };
 
 const renderTitle = (cardElement, title) => {
   const offerTitle = cardElement.querySelector('.popup__title');
   if (title && title.length) {
     offerTitle.textContent = title;
+  } else {
+    offerTitle.remove();
   }
-  offerTitle.remove();
 };
 
 const renderAddress = (cardElement, address) => {
   const offerAddress = cardElement.querySelector('.popup__text--address');
   if (address && address.length) {
     offerAddress.textContent = address;
+  } else {
+    offerAddress.remove();
   }
-  offerAddress.remove();
 };
 
 const renderPrice = (cardElement, price) => {
   const offerPrice = cardElement.querySelector('.popup__text--price');
   if (price && price.length) {
     offerPrice.textContent = price;
+  } else {
+    offerPrice.remove();
   }
-  offerPrice.remove();
 };
 
 const renderHousingType = (cardElement, type) => {
   const housingType = cardElement.querySelector('.popup__type');
-  if (type && type.length) {
+  if (type) {
+    const text = TEXT_TRANSLATE[type];
+    housingType.textContent = text;
     housingType.textContent = type;
+  } else {
+    housingType.remove();
   }
-  housingType.remove();
-  TEXT_TRANSLATE.forEach((houseType) => {
-    if ((houseType = type)) {
-      type.textContent = houseType.textContent;
-    }
-    type.remove();
-  });
 };
 
 const renderFeatures = (cardElement, features) => {
@@ -124,3 +126,7 @@ newCard.forEach(({ author, offer }) => {
 
   cardListFragment.appendChild(cardElement);
 });
+
+document.querySelector('#map-canvas').appendChild(cardListFragment);
+
+export { cardListFragment };

@@ -1,4 +1,4 @@
-import DefaultNumber from './data.js';
+import { DefaultNumber } from './data.js';
 
 const getRandomNumber = (
   min = DefaultNumber.MIN,
