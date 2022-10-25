@@ -24,6 +24,10 @@ const DESCRIPTIONS = [
 
 const CHECK_TIMES = ['12:00', '13:00', '14:00'];
 
+const GUEST = ['гостя', 'гостей', 'гостей'];
+
+const ROOMS = ['комната', 'комнаты', 'комнат'];
+
 const Price = {
   MIN: 1000,
   MAX: 2500,
@@ -97,13 +101,13 @@ const getOffer = (location = { lat: 0, lng: 0 }) => ({
   title: 'Найдите свой приют',
   address: `${location.lat}, ${location.lng}`,
   price: getRandomNumber(Price.MIN, Price.MAX),
-  type: getRandomArrayElement(HOUSE_TYPES),
+  types: getRandomArrayElement(HOUSE_TYPES),
   rooms: getRandomNumber(Room.MIN, Room.MAX),
   guests: getRandomNumber(Guest.MIN, Guest.MAX),
   checkin: getRandomArrayElement(CHECK_TIMES),
   checkout: getRandomArrayElement(CHECK_TIMES),
   features: getRandomUniqArray(HOUSE_FEATURES),
-  description: getRandomArrayElement(DESCRIPTIONS),
+  descriptions: getRandomArrayElement(DESCRIPTIONS),
   photos: getRandomArray(PHOTOS),
 });
 
@@ -126,4 +130,4 @@ const getApiArray = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
 getApiArray();
 
 export { getApiArray };
-export { DefaultNumber };
+export { DefaultNumber, ROOMS, GUEST };

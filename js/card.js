@@ -1,8 +1,5 @@
-import { getApiArray } from './data.js';
-
-const cardTemplate = document
-  .querySelector('#card')
-  .content.querySelector('.popup');
+import { getApiArray, GUEST, ROOMS } from './data.js';
+import { getTranslationDeclension } from './util.js';
 
 const TEXT_TRANSLATE = {
   flat: 'Квартира',
@@ -12,7 +9,11 @@ const TEXT_TRANSLATE = {
   hotel: 'Отель',
 };
 
-const newCard = getApiArray();
+const cardTemplate = document
+  .querySelector('#card')
+  .content.querySelector('.popup');
+
+const createCards = getApiArray();
 
 const cardListFragment = document.createDocumentFragment();
 
@@ -80,28 +81,28 @@ const renderHousingType = (cardElement, type) => {
   if (type) {
     const text = TEXT_TRANSLATE[type];
     housingType.textContent = text;
-    housingType.textContent = type;
-  } else {
-    housingType.remove();
   }
 };
 
 const renderFeatures = (cardElement, features) => {
   const featureList = cardElement.querySelector('.popup__features');
-  const featureItems = cardElement.querySelectorAll('.popup_feature');
-  if (features && features.length) {
-    const modifiers = features.map((feature) => `popup__feature--${feature}`);
-    featureItems.forEach((featureItem) => {
-      const modifier = featureItem.classList[1];
-      if (modifiers.includes(modifier)) {
-        featureItem.remove();
+  if (features) {
+    const featuresList = featureList.querySelectorAll('.popup__feature');
+    featuresList.forEach((featuresListItem) => {
+      const isNecessary = features.some((feature) =>
+        featuresListItem.classList.contains(`popup__feature--${feature}`)
+      );
+
+      if (!isNecessary) {
+        featuresListItem.remove();
       }
     });
+  } else {
+    renderFeatures.remove();
   }
-  featureList.remove();
 };
 
-newCard.forEach(({ author, offer }) => {
+createCards.forEach(({ author, offer }) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -112,17 +113,20 @@ newCard.forEach(({ author, offer }) => {
     TEXT_TRANSLATE[offer.type];
   cardElement.querySelector(
     '.popup__text--capacity'
-  ).textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
+  ).textContent = `${getTranslationDeclension(
+    offer.rooms,
+    ROOMS
+  )} для ${getTranslationDeclension(offer.guests, GUEST)}`;
   cardElement.querySelector(
     '.popup__text--time'
   ).textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  renderDescription(cardElement, offer.description);
+  renderDescription(cardElement, offer.descriptions);
   renderFeatures(cardElement, offer.features);
   renderPhoto(cardElement, offer.photos, offer.title);
   renderTitle(cardElement, offer.title);
   renderAddress(cardElement, offer.address);
   renderPrice(cardElement, offer.price);
-  renderHousingType(cardElement, offer.type);
+  renderHousingType(cardElement, offer.types);
 
   cardListFragment.appendChild(cardElement);
 });
