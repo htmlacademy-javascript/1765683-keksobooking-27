@@ -110,7 +110,7 @@ createCards.forEach(({ author, offer }) => {
     offer.address;
   cardElement.querySelector('[data-price]').textContent = offer.price;
   cardElement.querySelector('.popup__type').textContent =
-    TEXT_TRANSLATE[offer.type];
+    TEXT_TRANSLATE[offer.types];
   cardElement.querySelector(
     '.popup__text--capacity'
   ).textContent = `${getTranslationDeclension(
