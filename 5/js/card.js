@@ -110,7 +110,7 @@ createCards.forEach(({ author, offer }) => {
     offer.address;
   cardElement.querySelector('[data-price]').textContent = offer.price;
   cardElement.querySelector('.popup__type').textContent =
-    TEXT_TRANSLATE[offer.types];
+    TEXT_TRANSLATE[offer.type];
   cardElement.querySelector(
     '.popup__text--capacity'
   ).textContent = `${getTranslationDeclension(
@@ -120,13 +120,13 @@ createCards.forEach(({ author, offer }) => {
   cardElement.querySelector(
     '.popup__text--time'
   ).textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  renderDescription(cardElement, offer.descriptions);
+  renderDescription(cardElement, offer.description);
   renderFeatures(cardElement, offer.features);
   renderPhoto(cardElement, offer.photos, offer.title);
   renderTitle(cardElement, offer.title);
   renderAddress(cardElement, offer.address);
   renderPrice(cardElement, offer.price);
-  renderHousingType(cardElement, offer.types);
+  renderHousingType(cardElement, offer.type);
 
   cardListFragment.appendChild(cardElement);
 });

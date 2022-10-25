@@ -101,13 +101,13 @@ const getOffer = (location = { lat: 0, lng: 0 }) => ({
   title: 'Найдите свой приют',
   address: `${location.lat}, ${location.lng}`,
   price: getRandomNumber(Price.MIN, Price.MAX),
-  types: getRandomArrayElement(HOUSE_TYPES),
+  type: getRandomArrayElement(HOUSE_TYPES),
   rooms: getRandomNumber(Room.MIN, Room.MAX),
   guests: getRandomNumber(Guest.MIN, Guest.MAX),
   checkin: getRandomArrayElement(CHECK_TIMES),
   checkout: getRandomArrayElement(CHECK_TIMES),
   features: getRandomUniqArray(HOUSE_FEATURES),
-  descriptions: getRandomArrayElement(DESCRIPTIONS),
+  description: getRandomArrayElement(DESCRIPTIONS),
   photos: getRandomArray(PHOTOS),
 });
 
