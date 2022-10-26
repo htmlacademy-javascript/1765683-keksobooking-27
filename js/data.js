@@ -1,5 +1,14 @@
 import { getRandomNumber, getRandomArrayElement } from './util.js';
+
 const HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+
+const TEXT_TRANSLATE = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
 
 const HOUSE_FEATURES = [
   'wifi',
@@ -23,6 +32,10 @@ const DESCRIPTIONS = [
 ];
 
 const CHECK_TIMES = ['12:00', '13:00', '14:00'];
+
+const DECLINATION_GUESTS = ['гостя', 'гостей', 'гостей'];
+
+const DECLINATION_ROOMS = ['комната', 'комнаты', 'комнат'];
 
 const Price = {
   MIN: 1000,
@@ -122,5 +135,13 @@ const getApiItem = (_, index) => {
   };
 };
 
-const getApiArray = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
-getApiArray();
+const generateData = () => Array.from({ length: ARRAY_LENGTH }, getApiItem);
+
+export { generateData };
+export {
+  DefaultNumber,
+  DECLINATION_ROOMS,
+  DECLINATION_GUESTS,
+  HOUSE_FEATURES,
+  TEXT_TRANSLATE,
+};

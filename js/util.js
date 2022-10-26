@@ -1,4 +1,4 @@
-import DefaultNumber from './data.js';
+import { DefaultNumber } from './data.js';
 
 const getRandomNumber = (
   min = DefaultNumber.MIN,
@@ -17,4 +17,17 @@ const getRandomNumber = (
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-export { getRandomNumber, getRandomArrayElement };
+const getTranslationDeclension = (count, array) => {
+  if (count < 1) {
+    return '';
+  }
+
+  if (count < 2) {
+    return `1 ${array[0]}`;
+  }
+  if (count < 5) {
+    return `${count} ${array[1]}`;
+  }
+  return `${count} ${array[2]}`;
+};
+export { getRandomNumber, getRandomArrayElement, getTranslationDeclension };
