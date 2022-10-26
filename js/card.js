@@ -1,19 +1,17 @@
-import { getApiArray, GUEST, ROOMS } from './data.js';
+import {
+  generateData,
+  DECLINATION_GUESTS,
+  DECLINATION_ROOMS,
+  HOUSE_FEATURES,
+  TEXT_TRANSLATE,
+} from './data.js';
 import { getTranslationDeclension } from './util.js';
-
-const TEXT_TRANSLATE = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
-};
 
 const cardTemplate = document
   .querySelector('#card')
   .content.querySelector('.popup');
 
-const createCards = getApiArray();
+const dataList = generateData();
 
 const cardListFragment = document.createDocumentFragment();
 
@@ -85,24 +83,23 @@ const renderHousingType = (cardElement, type) => {
 };
 
 const renderFeatures = (cardElement, features) => {
-  const featureList = cardElement.querySelector('.popup__features');
   if (features) {
-    const featuresList = featureList.querySelectorAll('.popup__feature');
-    featuresList.forEach((featuresListItem) => {
-      const isNecessary = features.some((feature) =>
-        featuresListItem.classList.contains(`popup__feature--${feature}`)
-      );
+    const featureList = cardElement.querySelector('.popup__features');
+    featureList.innerHTML = '';
 
-      if (!isNecessary) {
-        featuresListItem.remove();
-      }
+    features.forEach((feature) => {
+      const featureListItem = document.createElement('li');
+
+      featureListItem.classList.add('popup__feature');
+      featureListItem.classList.add(`popup__feature--${feature}`);
+      featureListItem.textContent = HOUSE_FEATURES[feature];
+
+      featureList.append(featureListItem);
     });
-  } else {
-    renderFeatures.remove();
   }
 };
 
-createCards.forEach(({ author, offer }) => {
+dataList.forEach(({ author, offer }) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -115,8 +112,8 @@ createCards.forEach(({ author, offer }) => {
     '.popup__text--capacity'
   ).textContent = `${getTranslationDeclension(
     offer.rooms,
-    ROOMS
-  )} для ${getTranslationDeclension(offer.guests, GUEST)}`;
+    DECLINATION_ROOMS
+  )} для ${getTranslationDeclension(offer.guests, DECLINATION_GUESTS)}`;
   cardElement.querySelector(
     '.popup__text--time'
   ).textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
