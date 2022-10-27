@@ -18,7 +18,7 @@ const enableElements = (elements) => {
   });
 };
 
-const offState = () => {
+const advertFormDisable = () => {
   advertForm.classList.add('.ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
 
@@ -31,7 +31,7 @@ const offState = () => {
   disableElements(mapInputs);
 };
 
-const onState = () => {
+const advertFormEnable = () => {
   advertForm.classList.remove('.ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
 
@@ -44,4 +44,4 @@ const onState = () => {
   enableElements(mapInputs);
 };
 
-export { offState, onState };
+export { advertFormDisable, advertFormEnable };
