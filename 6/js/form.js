@@ -18,7 +18,7 @@ const enableElements = (elements) => {
   });
 };
 
-const onDisableForm = () => {
+const disable = () => {
   advertForm.classList.add('.ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
 
@@ -31,7 +31,7 @@ const onDisableForm = () => {
   disableElements(mapInputs);
 };
 
-const onEnableForm = () => {
+const enable = () => {
   advertForm.classList.remove('.ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
 
@@ -44,4 +44,4 @@ const onEnableForm = () => {
   enableElements(mapInputs);
 };
 
-export { onDisableForm, onEnableForm };
+export { disable, enable };
