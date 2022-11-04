@@ -1,5 +1,4 @@
 import { advertForm } from './form.js';
-//import { getTranslationDeclension } from './util.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -81,6 +80,13 @@ const validateCapacity = () => {
 const setPricePlaceholder = () => {
   priceField.placeholder = MIN_PRICE[typeField.value];
 };
+
+typeField.addEventListener('change', () => {
+  setPricePlaceholder();
+  if (priceField.value) {
+    pristine.validate();
+  }
+});
 
 pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
