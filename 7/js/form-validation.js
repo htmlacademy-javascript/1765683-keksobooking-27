@@ -3,7 +3,7 @@ import { advertForm } from './form.js';
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
 const roomsField = advertForm.querySelector('#room_number');
-const capacityField = advertForm.querySelector('#capacity');
+const guestsField = advertForm.querySelector('#capacity');
 const typeField = advertForm.querySelector('#type');
 
 const MIN_TITLE_LENGTH = 30;
@@ -45,10 +45,10 @@ const getCapacityErrorMessage = () => {
   if (roomsField.value === MAX_ROOMS_VALUE) {
     return 'Не для гостей';
   }
-  if (capacityField.value === MIN_GUESTS_VALUE) {
+  if (guestsField.value === MIN_GUESTS_VALUE) {
     return `Необходимо ${MAX_ROOMS_VALUE} комнат`;
   }
-  return `Необходимо минимум ${capacityField.value} комнаты.`;
+  return `Необходимо минимум ${guestsField.value} комнаты.`;
 };
 
 const validateTitle = (value) => {
@@ -57,22 +57,17 @@ const validateTitle = (value) => {
   }
 };
 
-const validatePrice = (value) => {
-  if (
-    value >= MIN_PRICE[typeField.value] &&
-    value <= MAX_PRICE[typeField.value]
-  ) {
-    return +value;
-  }
-};
+const validatePrice = () =>
+  priceField.value >= MIN_PRICE[typeField.value] &&
+  priceField.value <= MAX_PRICE;
 
 const validateCapacity = () => {
   if (roomsField.value === MAX_ROOMS_VALUE) {
-    return capacityField.value === MIN_GUESTS_VALUE;
+    return guestsField.value === MIN_GUESTS_VALUE;
   } else {
     return (
-      roomsField.value >= capacityField.value &&
-      capacityField.value !== MIN_GUESTS_VALUE
+      roomsField.value >= guestsField.value &&
+      guestsField.value !== MIN_GUESTS_VALUE
     );
   }
 };
@@ -92,9 +87,8 @@ pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
 pristine.addValidator(titleField, validateTitle, getTitleErrorMessage);
 
-pristine.addValidator(capacityField, validateCapacity, getCapacityErrorMessage);
+pristine.addValidator(guestsField, validateCapacity, getCapacityErrorMessage);
 
-advertForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+advertForm.addEventListener('submit', () => {
   pristine.validate();
 });
