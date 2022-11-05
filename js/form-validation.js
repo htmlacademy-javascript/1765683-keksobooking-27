@@ -84,8 +84,10 @@ typeField.addEventListener('change', () => {
 });
 
 const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+  const isValid = pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
 };
 
 const addValidation = () => {
