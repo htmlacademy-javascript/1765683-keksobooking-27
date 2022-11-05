@@ -83,12 +83,19 @@ typeField.addEventListener('change', () => {
   }
 });
 
-pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
-
-pristine.addValidator(titleField, validateTitle, getTitleErrorMessage);
-
-pristine.addValidator(guestsField, validateCapacity, getCapacityErrorMessage);
-
-advertForm.addEventListener('submit', () => {
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
   pristine.validate();
-});
+};
+
+const addValidation = () => {
+  pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
+
+  pristine.addValidator(titleField, validateTitle, getTitleErrorMessage);
+
+  pristine.addValidator(guestsField, validateCapacity, getCapacityErrorMessage);
+};
+
+advertForm.addEventListener('submit', onFormSubmit);
+
+addValidation(advertForm);
