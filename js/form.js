@@ -44,6 +44,6 @@ const enable = () => {
   enableElements(mapInputs);
 };
 
-//export { disable, enable };
-export { disableElements, enableElements };
+export { disable, enable };
+
 export { advertForm };
