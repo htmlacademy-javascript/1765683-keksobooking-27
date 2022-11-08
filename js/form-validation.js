@@ -74,13 +74,13 @@ const validateCapacity = () => {
   }
 };
 
-const setPriceBehavior = () => {
+const changeMinPrice = () => {
   priceField.placeholder = MIN_PRICE[typeField.value];
   priceField.min = MIN_PRICE[typeField.value];
 };
 
 typeField.addEventListener('change', () => {
-  setPriceBehavior();
+  changeMinPrice();
   if (priceField.value) {
     pristine.validate();
   }
