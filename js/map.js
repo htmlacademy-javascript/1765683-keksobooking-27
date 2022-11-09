@@ -1,4 +1,4 @@
-import { enable, disable } from './form.js';
+//import { enable, disable } from './form.js';
 import { generateData } from './data.js';
 import { dataList } from './card.js';
 
