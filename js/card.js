@@ -130,4 +130,4 @@ dataList.forEach(({ author, offer }) => {
 
 document.querySelector('#map-canvas').appendChild(cardListFragment);
 
-export { cardListFragment };
+export { cardListFragment, dataList };
