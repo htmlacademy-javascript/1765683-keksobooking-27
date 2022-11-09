@@ -5,6 +5,8 @@ const priceField = advertForm.querySelector('#price');
 const roomsField = advertForm.querySelector('#room_number');
 const guestsField = advertForm.querySelector('#capacity');
 const typeField = advertForm.querySelector('#type');
+const checkinTime = advertForm.querySelector('#timein');
+const checkoutTime = advertForm.querySelector('#timeout');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -72,16 +74,26 @@ const validateCapacity = () => {
   }
 };
 
-const setPricePlaceholder = () => {
+const changeMinPrice = () => {
   priceField.placeholder = MIN_PRICE[typeField.value];
+  priceField.min = MIN_PRICE[typeField.value];
 };
 
 typeField.addEventListener('change', () => {
-  setPricePlaceholder();
+  changeMinPrice();
   if (priceField.value) {
     pristine.validate();
   }
 });
+
+const onCheckinChange = () => {
+  checkoutTime.value = checkinTime.value;
+};
+const onCheckoutChange = () => {
+  checkinTime.value = checkoutTime.value;
+};
+checkinTime.addEventListener('change', onCheckinChange);
+checkoutTime.addEventListener('change', onCheckoutChange);
 
 const onFormSubmit = (evt) => {
   const isValid = pristine.validate();
