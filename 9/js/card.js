@@ -1,5 +1,4 @@
 import {
-  generateData,
   DECLINATION_GUESTS,
   DECLINATION_ROOMS,
   HOUSE_FEATURES,
@@ -10,8 +9,6 @@ import { getTranslationDeclension } from './util.js';
 const cardTemplate = document
   .querySelector('#card')
   .content.querySelector('.popup');
-
-const dataList = generateData();
 
 const cardListFragment = document.createDocumentFragment();
 
@@ -99,7 +96,7 @@ const renderFeatures = (cardElement, features) => {
   }
 };
 
-dataList.forEach(({ author, offer }) => {
+const getCardItem = ({ author, offer }) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;
@@ -126,8 +123,9 @@ dataList.forEach(({ author, offer }) => {
   renderHousingType(cardElement, offer.type);
 
   cardListFragment.appendChild(cardElement);
-});
+  return cardElement;
+};
 
 document.querySelector('#map-canvas').appendChild(cardListFragment);
 
-export { cardListFragment, dataList };
+export { cardListFragment, getCardItem };
