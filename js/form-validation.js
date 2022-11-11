@@ -7,6 +7,7 @@ const guestsField = advertForm.querySelector('#capacity');
 const typeField = advertForm.querySelector('#type');
 const checkinTime = advertForm.querySelector('#timein');
 const checkoutTime = advertForm.querySelector('#timeout');
+const priceFieldSlider = advertForm.querySelector('#slider');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -101,6 +102,24 @@ const onFormSubmit = (evt) => {
     evt.preventDefault();
   }
 };
+
+noUiSlider.create(priceFieldSlider, {
+  range: {
+    min: 0,
+    max: 100000,
+  },
+  start: 1000,
+  step: 100,
+  connect: 'lower',
+  format: {
+    to: (value) => value.toFixed(0),
+    from: (value) => parseFloat(value),
+  },
+});
+
+priceFieldSlider.noUiSlider.on('update', () => {
+  priceField.value = priceFieldSlider.noUiSlider.get();
+});
 
 const addValidation = () => {
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
