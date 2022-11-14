@@ -1,5 +1,11 @@
-import { advertForm } from './form.js';
+import { advertForm, enable } from './form.js';
 import { sendData } from './api.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
+import {
+  CITY_COORDINATES,
+  setAddress,
+  setMainMarkerCoordinate,
+} from './map.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -108,33 +114,49 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const onSendSuccess = () => {};
+const resetForm = () => {
+  advertForm.reset();
+  priceFieldSlider.noUiSlider.set(priceField.value);
+};
 
-const onSendFail = () => {};
+const resetCoordinate = () => {
+  setMainMarkerCoordinate();
+  setAddress(CITY_COORDINATES);
+};
 
-const setFormSubmit = (onSuccess) => {
-  const isValid = pristine.validate();
-  advertForm.addEventListener('submit', (evt) => {
+const onGetDataSuccess = (offers) => {
+  //добавить маркеры
+  enable();
+};
+
+const onSendDataSuccess = () => {
+  resetForm();
+  resetCoordinate();
+  showSuccessMessage();
+};
+
+const onSendDataFail = () => {
+  resetForm();
+  showErrorMessage();
+};
+
+const setOnFormSubmit = (cb) => {
+  advertForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-    const formData = new FormData(evt.target);
+    const isValid = pristine.validate();
+
     if (isValid) {
       blockSubmitButton();
-      sendData(
-        () => {
-          onSuccess();
-          unblockSubmitButton();
-        },
-        () => {
-          onSendFail();
-          unblockSubmitButton();
-        },
-        formData
-      );
+      await cb(new FormData(evt.target));
+      unblockSubmitButton();
     }
   });
 };
 
-setFormSubmit(onSendSuccess);
+setOnFormSubmit(async (data) => {
+  await sendData(onSendDataSuccess, showErrorMessage, data);
+});
+//setFormSubmit(onSendSuccess);
 
 noUiSlider.create(priceFieldSlider, {
   range: {

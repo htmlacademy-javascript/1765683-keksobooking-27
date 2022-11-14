@@ -41,6 +41,17 @@ const mainMarker = L.marker(
   }
 );
 
+const setAddress = ({ lat, lng }) => {
+  addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+};
+
+const setMainMarkerCoordinate = () => {
+  mainMarker.setLatLng({
+    lat: CITY_COORDINATES.lat,
+    lng: CITY_COORDINATES.lng,
+  });
+};
+
 const markerGroup = L.layerGroup().addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -62,3 +73,5 @@ getPopup.forEach((dataUnit) => {
 
   marker.addTo(map).bindPopup(getCardItem(dataUnit));
 });
+
+export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate };

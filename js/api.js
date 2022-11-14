@@ -1,35 +1,34 @@
 const dataURL = 'https://27.javascript.pages.academy/keksobooking/data';
 const serverURL = 'https://27.javascript.pages.academy/keksobooking';
 
-const getData = (onSuccess, onFail) => {
-  fetch(dataURL)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-    })
-    .then((offers) => {
-      onSuccess(offers);
-    })
-    .catch(() => {
-      onFail();
-    });
+const getData = async (onSuccess, onFail) => {
+  try {
+    const response = await fetch(dataURL);
+
+    if (!response.ok) {
+      throw new Error('Не удалось загрузить объявления');
+    }
+    const offers = await response.json();
+    onSuccess(offers);
+  } catch (error) {
+    onFail(error.message);
+  }
 };
-const sendData = (onSuccess, onFail, body) => {
-  fetch(serverURL, {
-    method: 'POST',
-    body,
-  })
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
+
+const sendData = async (onSuccess, onFail, body) => {
+  try {
+    const response = await fetch(serverURL, {
+      method: 'POST',
+      body,
     });
+
+    if (!response.ok) {
+      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+    }
+    onSuccess();
+  } catch (error) {
+    onFail(error.message);
+  }
 };
 
 export { getData, sendData };
