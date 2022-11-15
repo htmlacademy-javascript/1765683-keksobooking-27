@@ -7,7 +7,7 @@ import './api.js';
 import './slider.js';
 
 import { sendData, getData } from './api.js';
-import { advertForm, enable } from './form.js';
+import { advertForm, disable, enable } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 import { setOnFormSubmit } from './form-validation.js';
 import {
@@ -17,14 +17,15 @@ import {
   setAdPins,
 } from './map.js';
 import { priceField, priceFieldSlider } from './form-validation.js';
-import { getCardItem } from './card.js';
+//import { getCardItem } from './card.js';
+import { showAlert } from './util.js';
 
-const SIMILAR_OFFERS_COUNT = 10;
-
+//const SIMILAR_OFFERS_COUNT = 10;
+/*
 getData((offers) => {
   getCardItem(offers.slice(0, SIMILAR_OFFERS_COUNT));
 });
-
+*/
 const resetForm = () => {
   advertForm.reset();
   priceFieldSlider.noUiSlider.set(priceField.value);
@@ -49,3 +50,6 @@ const onSendDataSuccess = () => {
 setOnFormSubmit(async (data) => {
   await sendData(onSendDataSuccess, showErrorMessage, data);
 });
+
+
+getData(onGetDataSuccess, showAlert);

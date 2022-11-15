@@ -1,9 +1,9 @@
-import { generateData } from './data.js';
+//import { generateData } from './data.js';
 import { getCardItem } from './card.js';
 
 const addressField = document.querySelector('#address');
 
-const getPopup = generateData();
+//
 
 const CITY_COORDINATES = {
   lat: 35.672855,
