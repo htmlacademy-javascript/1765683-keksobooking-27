@@ -96,7 +96,8 @@ const renderFeatures = (cardElement, features) => {
   }
 };
 
-const getCardItem = ({ author, offer }) => {
+const getCardItem = (item) => {
+  const { author, offer } = item;
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;

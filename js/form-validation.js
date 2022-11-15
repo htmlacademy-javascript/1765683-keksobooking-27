@@ -1,11 +1,4 @@
-import { advertForm, enable } from './form.js';
-import { sendData } from './api.js';
-import { showSuccessMessage, showErrorMessage } from './messages.js';
-import {
-  CITY_COORDINATES,
-  setAddress,
-  setMainMarkerCoordinate,
-} from './map.js';
+import { advertForm } from './form.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -114,32 +107,6 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const resetForm = () => {
-  advertForm.reset();
-  priceFieldSlider.noUiSlider.set(priceField.value);
-};
-
-const resetCoordinate = () => {
-  setMainMarkerCoordinate();
-  setAddress(CITY_COORDINATES);
-};
-
-const onGetDataSuccess = (offers) => {
-  //добавить маркеры
-  enable();
-};
-
-const onSendDataSuccess = () => {
-  resetForm();
-  resetCoordinate();
-  showSuccessMessage();
-};
-
-const onSendDataFail = () => {
-  resetForm();
-  showErrorMessage();
-};
-
 const setOnFormSubmit = (cb) => {
   advertForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -153,29 +120,6 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
-setOnFormSubmit(async (data) => {
-  await sendData(onSendDataSuccess, showErrorMessage, data);
-});
-//setFormSubmit(onSendSuccess);
-
-noUiSlider.create(priceFieldSlider, {
-  range: {
-    min: 0,
-    max: 100000,
-  },
-  start: 1000,
-  step: 100,
-  connect: 'lower',
-  format: {
-    to: (value) => value.toFixed(0),
-    from: (value) => parseFloat(value),
-  },
-});
-
-priceFieldSlider.noUiSlider.on('update', () => {
-  priceField.value = priceFieldSlider.noUiSlider.get();
-});
-
 const addValidation = () => {
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
@@ -185,3 +129,5 @@ const addValidation = () => {
 };
 
 addValidation(advertForm);
+
+export { setOnFormSubmit, priceField, priceFieldSlider };

@@ -66,12 +66,13 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}`;
 });
 
-getPopup.forEach((dataUnit) => {
-  const marker = L.marker(dataUnit.location, {
-    similarPinIcon,
+const setAdPins = (offers) => {
+  offers.forEach((offer) => {
+    const marker = L.marker(offer.location, {
+      similarPinIcon,
+    });
+
+    marker.addTo(map).bindPopup(getCardItem(offer));
   });
-
-  marker.addTo(map).bindPopup(getCardItem(dataUnit));
-});
-
-export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate };
+};
+export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate, setAdPins };
