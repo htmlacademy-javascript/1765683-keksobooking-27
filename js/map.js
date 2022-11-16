@@ -1,4 +1,3 @@
-//import { generateData } from './data.js';
 import { getCardItem } from './card.js';
 
 const addressField = document.querySelector('#address');

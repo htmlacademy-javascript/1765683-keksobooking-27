@@ -35,9 +35,10 @@ const showErrorMessage = () => {
   const errorMessageElement = errorMessageTemplate.cloneNode(true);
   document.addEventListener('keydown', onMessageEscKeydown);
   errorMessageElement
-    .querySelector('.error_button')
+    .querySelector('.error__button')
     .addEventListener('click', onErrorButtonClick);
   bodyElement.style.overflow = 'hidden';
+  bodyElement.append(errorMessageElement);
 };
 
 function hideMessage() {

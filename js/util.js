@@ -1,4 +1,4 @@
-import { DefaultNumber } from './data.js';
+import { DefaultNumber } from './mock.js';
 
 const ALERT_SHOW_TIME = 5000;
 

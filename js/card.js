@@ -3,7 +3,7 @@ import {
   DECLINATION_ROOMS,
   HOUSE_FEATURES,
   TEXT_TRANSLATE,
-} from './data.js';
+} from './mock.js';
 import { getTranslationDeclension } from './util.js';
 
 const cardTemplate = document
