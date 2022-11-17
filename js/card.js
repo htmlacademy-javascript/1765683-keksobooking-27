@@ -1,10 +1,10 @@
 import {
+  getTranslationDeclension,
   DECLINATION_GUESTS,
   DECLINATION_ROOMS,
   HOUSE_FEATURES,
   TEXT_TRANSLATE,
-} from './mock.js';
-import { getTranslationDeclension } from './util.js';
+} from './util.js';
 
 const cardTemplate = document
   .querySelector('#card')

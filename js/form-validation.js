@@ -8,7 +8,7 @@ const typeField = advertForm.querySelector('#type');
 const checkinTime = advertForm.querySelector('#timein');
 const checkoutTime = advertForm.querySelector('#timeout');
 const priceFieldSlider = advertForm.querySelector('#slider');
-const submitButton = advertForm.querySelector('#submit');
+const submitButton = advertForm.querySelector('.ad-form__submit');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;

@@ -1,9 +1,9 @@
-const dataURL = 'https://27.javascript.pages.academy/keksobooking/data';
-const serverURL = 'https://27.javascript.pages.academy/keksobooking';
+const DATA_URL = 'https://27.javascript.pages.academy/keksobooking/data';
+const SERVER_URL = 'https://27.javascript.pages.academy/keksobooking';
 
 const getData = async (onSuccess, onFail) => {
   try {
-    const response = await fetch(dataURL);
+    const response = await fetch(DATA_URL);
 
     if (!response.ok) {
       throw new Error('Не удалось загрузить объявления');
@@ -17,7 +17,7 @@ const getData = async (onSuccess, onFail) => {
 
 const sendData = async (onSuccess, onFail, body) => {
   try {
-    const response = await fetch(serverURL, {
+    const response = await fetch(SERVER_URL, {
       method: 'POST',
       body,
     });
