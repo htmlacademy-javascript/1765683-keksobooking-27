@@ -2,8 +2,6 @@ import { getCardItem } from './card.js';
 
 const addressField = document.querySelector('#address');
 
-//
-
 const CITY_COORDINATES = {
   lat: 35.672855,
   lng: 139.817413,

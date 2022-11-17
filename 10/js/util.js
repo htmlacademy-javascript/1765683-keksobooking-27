@@ -1,6 +1,31 @@
-import { DefaultNumber } from './mock.js';
-
 const ALERT_SHOW_TIME = 5000;
+
+const DefaultNumber = {
+  MIN: 0,
+  MAX: 10,
+  EXP: 0,
+};
+
+const TEXT_TRANSLATE = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+
+const HOUSE_FEATURES = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
+
+const DECLINATION_GUESTS = ['гостя', 'гостей', 'гостей'];
+
+const DECLINATION_ROOMS = ['комната', 'комнаты', 'комнат'];
 
 const getRandomNumber = (
   min = DefaultNumber.MIN,
@@ -57,4 +82,8 @@ export {
   getRandomArrayElement,
   getTranslationDeclension,
   showAlert,
+  TEXT_TRANSLATE,
+  HOUSE_FEATURES,
+  DECLINATION_GUESTS,
+  DECLINATION_ROOMS,
 };
