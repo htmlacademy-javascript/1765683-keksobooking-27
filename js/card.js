@@ -1,10 +1,10 @@
 import {
+  getTranslationDeclension,
   DECLINATION_GUESTS,
   DECLINATION_ROOMS,
   HOUSE_FEATURES,
   TEXT_TRANSLATE,
-} from './data.js';
-import { getTranslationDeclension } from './util.js';
+} from './util.js';
 
 const cardTemplate = document
   .querySelector('#card')
@@ -96,7 +96,8 @@ const renderFeatures = (cardElement, features) => {
   }
 };
 
-const getCardItem = ({ author, offer }) => {
+const getCardItem = (item) => {
+  const { author, offer } = item;
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__avatar').src = author.avatar;
   cardElement.querySelector('.popup__title').textContent = offer.title;

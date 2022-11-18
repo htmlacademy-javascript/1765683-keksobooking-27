@@ -1,9 +1,6 @@
-import { generateData } from './data.js';
 import { getCardItem } from './card.js';
 
 const addressField = document.querySelector('#address');
-
-const getPopup = generateData();
 
 const CITY_COORDINATES = {
   lat: 35.672855,
@@ -41,6 +38,17 @@ const mainMarker = L.marker(
   }
 );
 
+const setAddress = ({ lat, lng }) => {
+  addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+};
+
+const setMainMarkerCoordinate = () => {
+  mainMarker.setLatLng({
+    lat: CITY_COORDINATES.lat,
+    lng: CITY_COORDINATES.lng,
+  });
+};
+
 const markerGroup = L.layerGroup().addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,10 +63,13 @@ mainMarker.on('moveend', (evt) => {
   addressField.value = `lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}`;
 });
 
-getPopup.forEach((dataUnit) => {
-  const marker = L.marker(dataUnit.location, {
-    similarPinIcon,
-  });
+const setAdPins = (offers) => {
+  offers.forEach((offer) => {
+    const marker = L.marker(offer.location, {
+      similarPinIcon,
+    });
 
-  marker.addTo(map).bindPopup(getCardItem(dataUnit));
-});
+    marker.addTo(map).bindPopup(getCardItem(offer));
+  });
+};
+export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate, setAdPins };

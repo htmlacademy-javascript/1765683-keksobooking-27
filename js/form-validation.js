@@ -8,6 +8,7 @@ const typeField = advertForm.querySelector('#type');
 const checkinTime = advertForm.querySelector('#timein');
 const checkoutTime = advertForm.querySelector('#timeout');
 const priceFieldSlider = advertForm.querySelector('#slider');
+const submitButton = advertForm.querySelector('.ad-form__submit');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -96,30 +97,28 @@ const onCheckoutChange = () => {
 checkinTime.addEventListener('change', onCheckinChange);
 checkoutTime.addEventListener('change', onCheckoutChange);
 
-const onFormSubmit = (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
 };
 
-noUiSlider.create(priceFieldSlider, {
-  range: {
-    min: 0,
-    max: 100000,
-  },
-  start: 1000,
-  step: 100,
-  connect: 'lower',
-  format: {
-    to: (value) => value.toFixed(0),
-    from: (value) => parseFloat(value),
-  },
-});
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
-priceFieldSlider.noUiSlider.on('update', () => {
-  priceField.value = priceFieldSlider.noUiSlider.get();
-});
+const setOnFormSubmit = (cb) => {
+  advertForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(evt.target));
+      unblockSubmitButton();
+    }
+  });
+};
 
 const addValidation = () => {
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
@@ -129,6 +128,6 @@ const addValidation = () => {
   pristine.addValidator(guestsField, validateCapacity, getCapacityErrorMessage);
 };
 
-advertForm.addEventListener('submit', onFormSubmit);
-
 addValidation(advertForm);
+
+export { setOnFormSubmit, priceField, priceFieldSlider };
