@@ -1,4 +1,5 @@
 import { advertForm } from './form.js';
+import { resetForm } from './main.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -118,6 +119,7 @@ const setOnFormSubmit = (cb) => {
       unblockSubmitButton();
     }
   });
+  resetForm();
 };
 
 const addValidation = () => {
@@ -130,4 +132,4 @@ const addValidation = () => {
 
 addValidation(advertForm);
 
-export { setOnFormSubmit, priceField, priceFieldSlider };
+export { setOnFormSubmit, priceField, priceFieldSlider, MIN_PRICE, typeField };

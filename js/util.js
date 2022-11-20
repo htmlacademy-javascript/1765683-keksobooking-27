@@ -77,11 +77,23 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const isNumberInRange = (number, min, max) => (min <= number && number <= max);
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 export {
   getRandomNumber,
   getRandomArrayElement,
   getTranslationDeclension,
   showAlert,
+  isNumberInRange,
+  debounce,
   TEXT_TRANSLATE,
   HOUSE_FEATURES,
   DECLINATION_GUESTS,

@@ -39,7 +39,7 @@ const mainMarker = L.marker(
 );
 
 const setAddress = ({ lat, lng }) => {
-  addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  addressField.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
 };
 
 const setMainMarkerCoordinate = () => {
@@ -50,26 +50,32 @@ const setMainMarkerCoordinate = () => {
 };
 
 const markerGroup = L.layerGroup().addTo(map);
+const clearMarkers = () => markerGroup.clearLayers();
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-mainMarker.addTo(markerGroup);
+mainMarker.addTo(map);
 
 mainMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-  addressField.value = `lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}`;
+  addressField.value = `lat: ${lat.toFixed(6)}, lng: ${lng.toFixed(6)}`;
 });
 
-const setAdPins = (offers) => {
-  offers.forEach((offer) => {
-    const marker = L.marker(offer.location, {
-      similarPinIcon,
-    });
-
-    marker.addTo(map).bindPopup(getCardItem(offer));
+const setAdPins = (offer) => {
+  const marker = L.marker(offer.location, {
+    similarPinIcon,
   });
+
+  marker.addTo(markerGroup).bindPopup(getCardItem(offer));
 };
-export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate, setAdPins };
+export {
+  CITY_COORDINATES,
+  markerGroup,
+  setAddress,
+  setMainMarkerCoordinate,
+  clearMarkers,
+  setAdPins,
+};
