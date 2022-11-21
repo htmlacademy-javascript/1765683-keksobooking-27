@@ -1,5 +1,5 @@
 import { advertForm } from './form.js';
-import { resetForm } from './main.js';
+import { resetForm } from './form.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');

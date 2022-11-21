@@ -71,6 +71,12 @@ const setAdPins = (offer) => {
 
   marker.addTo(markerGroup).bindPopup(getCardItem(offer));
 };
+
+const resetCoordinate = () => {
+  setMainMarkerCoordinate();
+  setAddress(CITY_COORDINATES);
+};
+
 export {
   CITY_COORDINATES,
   markerGroup,
@@ -78,4 +84,5 @@ export {
   setMainMarkerCoordinate,
   clearMarkers,
   setAdPins,
+  resetCoordinate
 };

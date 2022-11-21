@@ -7,34 +7,14 @@ import './slider.js';
 import './filter.js';
 
 import { sendData, getData } from './api.js';
-import { advertForm, disable, enable } from './form.js';
+import { disable, enable, resetForm } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
-import { setOnFormSubmit, MIN_PRICE, typeField } from './form-validation.js';
-import {
-  setMainMarkerCoordinate,
-  setAddress,
-  CITY_COORDINATES,
-  setAdPins,
-  clearMarkers,
-} from './map.js';
-import { priceField, priceFieldSlider } from './form-validation.js';
+import { setOnFormSubmit } from './form-validation.js';
+import { setAdPins, clearMarkers, resetCoordinate } from './map.js';
 import { showAlert } from './util.js';
-//import { AMOUNT_MARKERS } from './filter.js';
-
 import { filterOffers, onChangeFilter, resetFilters } from './filter.js';
 
 disable();
-
-const resetForm = () => {
-  advertForm.reset();
-  priceField.value = MIN_PRICE[typeField.value];
-  priceFieldSlider.noUiSlider.set(priceField.value);
-};
-
-const resetCoordinate = () => {
-  setMainMarkerCoordinate();
-  setAddress(CITY_COORDINATES);
-};
 
 const onGetDataSuccess = (offers) => {
   if (offers.length) {
@@ -59,5 +39,3 @@ setOnFormSubmit(async (data) => {
 });
 
 getData(onGetDataSuccess, showAlert);
-
-export { resetForm };

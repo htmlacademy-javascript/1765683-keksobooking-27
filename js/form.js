@@ -1,3 +1,5 @@
+import { priceField, priceFieldSlider, typeField, MIN_PRICE } from './form-validation.js';
+
 const advertForm = document.querySelector('.ad-form');
 const advertFormFieldset = document.querySelectorAll('fieldset');
 
@@ -34,6 +36,12 @@ const enable = () => {
   enableElements(mapFiltersFieldset);
 };
 
+const resetForm = () => {
+  advertForm.reset();
+  priceField.value = MIN_PRICE[typeField.value];
+  priceFieldSlider.noUiSlider.set(priceField.value);
+};
+
 export { disable, enable };
 
-export { advertForm };
+export { advertForm, resetForm };
