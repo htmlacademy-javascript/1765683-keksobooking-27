@@ -1,5 +1,5 @@
 import { isNumberInRange, debounce } from './util.js';
-import { clearMarkers, markerGroup, setAdPins } from './map.js';
+import { markerGroup, setAdPins } from './map.js';
 
 const ANY = 'any';
 const AMOUNT_MARKERS = 10;
