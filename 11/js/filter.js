@@ -35,47 +35,47 @@ const compareAds = (adsA, adsB) => {
   return rankB - rankA;
 };
 
-const getFilterType = (offer) => {
+const verifyType = (type) => {
   if (typeElement.value === ANY) {
     return true;
   }
-  return typeElement.value === offer.offer.type;
+  return typeElement.value === type;
 };
 
-const getFilterPrice = (offer) => {
+const verifyPrice = (price) => {
   if (priceElement.value === ANY) {
     return true;
   }
   return isNumberInRange(
-    Number(offer.offer.price),
+    Number(price),
     Price[priceElement.value].MIN,
     Price[priceElement.value].MAX
   );
 };
 
-const getFilterRooms = (offer) => {
+const verifyRooms = (rooms) => {
   if (roomsElement.value === ANY) {
     return true;
   }
-  return Number(roomsElement.value) === offer.offer.rooms;
+  return Number(roomsElement.value) === rooms;
 };
 
-const getFilterGuests = (offer) => {
+const verifyGuests = (guests) => {
   if (guestsElement.value === ANY) {
     return true;
   }
-  return Number(guestsElement.value) === offer.offer.guests;
+  return Number(guestsElement.value) === guests;
 };
 
-const chooseFeatures = (offer) =>
+const verifyFeatures = (features) =>
   Array.from(featuresCheckBoxesElements).every((featureElement) => {
     if (!featureElement.checked) {
       return true;
     }
-    if (!offer.offer.features) {
+    if (!features) {
       return false;
     }
-    return offer.offer.features.includes(featureElement.value);
+    return features.includes(featureElement.value);
   });
 
 const onChangeFilter = (cb) => {
@@ -90,12 +90,14 @@ const onChangeFilter = (cb) => {
 };
 
 const filterOffers = (offers) => {
-  const filteredOffers = offers
-    .filter(getFilterType)
-    .filter(getFilterPrice)
-    .filter(getFilterRooms)
-    .filter(getFilterGuests)
-    .filter(chooseFeatures);
+  const filteredOffers = offers.filter(
+    (offer) =>
+      verifyType(offer.offer.type) &&
+      verifyPrice(offer.offer.price) &&
+      verifyRooms(offer.offer.rooms) &&
+      verifyGuests(offer.offer.guests) &&
+      verifyFeatures(offer.offer.features)
+  );
 
   return filteredOffers.sort(compareAds).slice(0, AMOUNT_MARKERS);
 };
