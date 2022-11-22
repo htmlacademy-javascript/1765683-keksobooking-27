@@ -1,10 +1,15 @@
-import { priceField, priceFieldSlider, typeField, MIN_PRICE } from './form-validation.js';
+import {
+  priceField,
+  priceFieldSlider,
+  typeField,
+  MIN_PRICE,
+} from './form-validation.js';
 
 const advertForm = document.querySelector('.ad-form');
-const advertFormFieldset = document.querySelectorAll('fieldset');
+const advertFormFieldsets = document.querySelectorAll('fieldset');
 
 const mapFilters = document.querySelector('.map__filters');
-const mapFiltersFieldset = mapFilters.querySelectorAll('fieldset');
+const mapFiltersFieldsets = mapFilters.querySelectorAll('fieldset');
 
 const disableElements = (element) => {
   element.disable = true;
@@ -19,10 +24,10 @@ const disable = () => {
   mapFilters.classList.add('map__filters--disabled');
 
   disableElements(advertForm);
-  disableElements(advertFormFieldset);
+  disableElements(advertFormFieldsets);
 
   disableElements(mapFilters);
-  disableElements(mapFiltersFieldset);
+  disableElements(mapFiltersFieldsets);
 };
 
 const enable = () => {
@@ -30,10 +35,10 @@ const enable = () => {
   mapFilters.classList.remove('map__filters--disabled');
 
   enableElements(advertForm);
-  enableElements(advertFormFieldset);
+  enableElements(advertFormFieldsets);
 
   enableElements(mapFilters);
-  enableElements(mapFiltersFieldset);
+  enableElements(mapFiltersFieldsets);
 };
 
 const resetForm = () => {
@@ -42,6 +47,4 @@ const resetForm = () => {
   priceFieldSlider.noUiSlider.set(priceField.value);
 };
 
-export { disable, enable };
-
-export { advertForm, resetForm };
+export { advertForm, disable, enable, resetForm };

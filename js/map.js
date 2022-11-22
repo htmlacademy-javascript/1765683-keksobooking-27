@@ -38,8 +38,8 @@ const mainMarker = L.marker(
   }
 );
 
-const setAddress = ({ lat, lng }) => {
-  addressField.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+const initAddress = () => {
+  addressField.value = `lat: ${CITY_COORDINATES.lat.toFixed(5)}, lng: ${CITY_COORDINATES.lng.toFixed(5)}`;
 };
 
 const setMainMarkerCoordinate = () => {
@@ -61,7 +61,7 @@ mainMarker.addTo(map);
 
 mainMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-  addressField.value = `lat: ${lat.toFixed(6)}, lng: ${lng.toFixed(6)}`;
+  addressField.value = `lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}`;
 });
 
 const setAdPins = (offer) => {
@@ -74,13 +74,13 @@ const setAdPins = (offer) => {
 
 const resetCoordinate = () => {
   setMainMarkerCoordinate();
-  setAddress(CITY_COORDINATES);
+  initAddress(CITY_COORDINATES);
 };
 
 export {
   CITY_COORDINATES,
   markerGroup,
-  setAddress,
+  initAddress,
   setMainMarkerCoordinate,
   clearMarkers,
   setAdPins,
