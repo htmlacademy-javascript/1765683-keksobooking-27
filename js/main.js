@@ -5,6 +5,7 @@ import './map.js';
 import './api.js';
 import './slider.js';
 import './filter.js';
+import './images.js';
 
 import { sendData, getData } from './api.js';
 import { disable, enable, resetForm } from './form.js';
@@ -24,6 +25,7 @@ import {
   filtersContainerElement,
   filterWatcher,
 } from './filter.js';
+//import { previewUploadedImage } from './images.js';
 
 const onFormDisableState = () => {
   filtersContainerElement.removeEventListener('change', filterWatcher);
