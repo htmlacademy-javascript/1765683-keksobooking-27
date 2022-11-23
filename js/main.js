@@ -4,38 +4,51 @@ import './form-validation.js';
 import './map.js';
 import './api.js';
 import './slider.js';
+import './filter.js';
+import './images.js';
 
 import { sendData, getData } from './api.js';
-import { advertForm, enable } from './form.js';
+import { disable, enable, resetForm } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 import { setOnFormSubmit } from './form-validation.js';
 import {
-  setMainMarkerCoordinate,
-  setAddress,
-  CITY_COORDINATES,
   setAdPins,
+  clearMarkers,
+  resetCoordinate,
+  initAddress,
 } from './map.js';
-import { priceField, priceFieldSlider } from './form-validation.js';
 import { showAlert } from './util.js';
+import {
+  filterOffers,
+  onChangeFilter,
+  resetFilters,
+  filtersContainerElement,
+  filterWatcher,
+} from './filter.js';
 
-const resetForm = () => {
-  advertForm.reset();
-  priceFieldSlider.noUiSlider.set(priceField.value);
+const onFormDisableState = () => {
+  filtersContainerElement.removeEventListener('change', filterWatcher);
+  disable();
 };
 
-const resetCoordinate = () => {
-  setMainMarkerCoordinate();
-  setAddress(CITY_COORDINATES);
-};
+onFormDisableState();
 
 const onGetDataSuccess = (offers) => {
-  setAdPins(offers);
+  if (offers.length) {
+    enable();
+  }
+  clearMarkers();
+  initAddress();
+  const filteredOffers = filterOffers(offers);
+  filteredOffers.forEach((offer) => setAdPins(offer));
   enable();
+  onChangeFilter(() => filterOffers(offers));
 };
 
 const onSendDataSuccess = () => {
   resetForm();
   resetCoordinate();
+  resetFilters();
   showSuccessMessage();
 };
 
