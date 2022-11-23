@@ -25,7 +25,6 @@ import {
   filtersContainerElement,
   filterWatcher,
 } from './filter.js';
-//import { previewUploadedImage } from './images.js';
 
 const onFormDisableState = () => {
   filtersContainerElement.removeEventListener('change', filterWatcher);
