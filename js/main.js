@@ -10,11 +10,27 @@ import { sendData, getData } from './api.js';
 import { disable, enable, resetForm } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
 import { setOnFormSubmit } from './form-validation.js';
-import { setAdPins, clearMarkers, resetCoordinate, initAddress } from './map.js';
+import {
+  setAdPins,
+  clearMarkers,
+  resetCoordinate,
+  initAddress,
+} from './map.js';
 import { showAlert } from './util.js';
-import { filterOffers, onChangeFilter, resetFilters } from './filter.js';
+import {
+  filterOffers,
+  onChangeFilter,
+  resetFilters,
+  filtersContainerElement,
+  filterWatcher,
+} from './filter.js';
 
-disable();
+const onFormDisableState = () => {
+  filtersContainerElement.removeEventListener('change', filterWatcher);
+  disable();
+};
+
+onFormDisableState();
 
 const onGetDataSuccess = (offers) => {
   if (offers.length) {

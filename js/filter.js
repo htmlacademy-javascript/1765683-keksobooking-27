@@ -20,6 +20,8 @@ const Price = {
   },
 };
 
+let getCurrentData;
+
 const filtersContainerElement = document.querySelector('.map__filters');
 const typeElement = filtersContainerElement.querySelector('#housing-type');
 const priceElement = filtersContainerElement.querySelector('#housing-price');
@@ -78,15 +80,17 @@ const verifyFeatures = (features) =>
     return features.includes(featureElement.value);
   });
 
+const filterWatcher = debounce(() => {
+  markerGroup.clearLayers();
+
+  const filteredOffers = getCurrentData();
+
+  filteredOffers.forEach((offer) => setAdPins(offer));
+}, RENDER_DELAY);
+
 const onChangeFilter = (cb) => {
-  filtersContainerElement.addEventListener(
-    'change',
-    debounce(() => {
-      markerGroup.clearLayers();
-      const filteredOffers = cb();
-      filteredOffers.forEach((offer) => setAdPins(offer));
-    }, RENDER_DELAY)
-  );
+  filtersContainerElement.addEventListener('change', filterWatcher);
+  getCurrentData = cb;
 };
 
 const filterOffers = (offers) => {
@@ -112,4 +116,11 @@ const resetFilters = () => {
   });
 };
 
-export { filterOffers, onChangeFilter, resetFilters, AMOUNT_MARKERS };
+export {
+  filterOffers,
+  onChangeFilter,
+  resetFilters,
+  AMOUNT_MARKERS,
+  filtersContainerElement,
+  filterWatcher,
+};
