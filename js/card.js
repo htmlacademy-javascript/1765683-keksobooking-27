@@ -44,40 +44,35 @@ const renderPhoto = (cardElement, photos, title) => {
   }
 };
 
-const renderTitle = (cardElement, title) => {
+const renderCardElements = (cardElement, title, price, type, address) => {
   const offerTitle = cardElement.querySelector('.popup__title');
   if (title && title.length) {
     offerTitle.textContent = title;
   } else {
     offerTitle.remove();
   }
-};
 
-const renderAddress = (cardElement, address) => {
   const offerAddress = cardElement.querySelector('.popup__text--address');
   if (address && address.length) {
     offerAddress.textContent = address;
   } else {
     offerAddress.remove();
   }
-};
 
-const renderPrice = (cardElement, price) => {
   const offerPrice = cardElement.querySelector('.popup__text--price');
   if (price && price.length) {
     offerPrice.textContent = price;
   } else {
     offerPrice.remove();
   }
-};
 
-const renderHousingType = (cardElement, type) => {
   const housingType = cardElement.querySelector('.popup__type');
   if (type) {
     const text = TEXT_TRANSLATE[type];
     housingType.textContent = text;
   }
 };
+
 
 const renderFeatures = (cardElement, features) => {
   if (features) {
@@ -118,11 +113,13 @@ const getCardItem = (item) => {
   renderDescription(cardElement, offer.description);
   renderFeatures(cardElement, offer.features);
   renderPhoto(cardElement, offer.photos, offer.title);
-  renderTitle(cardElement, offer.title);
-  renderAddress(cardElement, offer.address);
-  renderPrice(cardElement, offer.price);
-  renderHousingType(cardElement, offer.type);
-
+  renderCardElements(
+    cardElement,
+    offer.title,
+    offer.address,
+    offer.price,
+    offer.type
+  );
   cardListFragment.appendChild(cardElement);
   return cardElement;
 };
