@@ -44,7 +44,7 @@ const renderPhoto = (cardElement, photos, title) => {
   }
 };
 
-const renderCardElements = (cardElement, title, price, type, address) => {
+const renderCardElements = (cardElement, title, address, price, type) => {
   const offerTitle = cardElement.querySelector('.popup__title');
   if (title && title.length) {
     offerTitle.textContent = title;
