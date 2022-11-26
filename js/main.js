@@ -18,7 +18,7 @@ import {
   initAddress,
   onMapLoad,
 } from './map.js';
-import { showAlert } from './util.js';
+
 import {
   filtersContainerElement,
   filterWatcher,
