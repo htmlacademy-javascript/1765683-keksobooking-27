@@ -1,49 +1,37 @@
 const advertForm = document.querySelector('.ad-form');
-const advertFormSelects = advertForm.querySelectorAll('select');
-const advertFormInputs = advertForm.querySelectorAll('input');
+const advertFormFieldsets = document.querySelectorAll('fieldset');
 
 const mapFilters = document.querySelector('.map__filters');
-const mapSelects = mapFilters.querySelectorAll('select');
-const mapInputs = mapFilters.querySelectorAll('input');
+const mapFiltersFieldsets = mapFilters.querySelectorAll('fieldset');
 
-const disableElements = (elements) => {
-  elements.forEach((element) => {
-    element.disable(true);
-  });
+const disableElements = (element) => {
+  element.disabled = false;
 };
 
-const enableElements = (elements) => {
-  elements.forEach((element) => {
-    element.disable(false);
-  });
+const enableElements = (element) => {
+  element.disabled = true;
 };
 
 const disable = () => {
-  advertForm.classList.add('.ad-form--disabled');
+  advertForm.classList.add('ad-form--disabled');
   mapFilters.classList.add('map__filters--disabled');
 
   disableElements(advertForm);
-  disableElements(advertFormSelects);
-  disableElements(advertFormInputs);
+  disableElements(advertFormFieldsets);
 
   disableElements(mapFilters);
-  disableElements(mapSelects);
-  disableElements(mapInputs);
+  disableElements(mapFiltersFieldsets);
 };
 
 const enable = () => {
-  advertForm.classList.remove('.ad-form--disabled');
+  advertForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
 
   enableElements(advertForm);
-  enableElements(advertFormSelects);
-  enableElements(advertFormInputs);
+  enableElements(advertFormFieldsets);
 
   enableElements(mapFilters);
-  enableElements(mapSelects);
-  enableElements(mapInputs);
+  enableElements(mapFiltersFieldsets);
 };
 
-export { disable, enable };
-
-export { advertForm };
+export { advertForm, disable, enable };

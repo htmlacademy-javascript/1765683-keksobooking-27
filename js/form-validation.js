@@ -130,4 +130,4 @@ const addValidation = () => {
 
 addValidation(advertForm);
 
-export { setOnFormSubmit, priceField, priceFieldSlider };
+export { setOnFormSubmit, priceField, priceFieldSlider, typeField, MIN_PRICE };
