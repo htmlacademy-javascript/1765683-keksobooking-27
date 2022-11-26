@@ -60,6 +60,6 @@ setOnFormSubmit(async (data) => {
   await sendData(onSendDataSuccess, showErrorMessage, data);
 });
 
-onMapLoad(getData(onGetDataSuccess, showAlert));
+onMapLoad(getData(onGetDataSuccess));
 
 export { onGetDataSuccess };

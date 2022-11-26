@@ -46,7 +46,7 @@ const showAlert = (message) => {
   alert.style.fontSize = '30 px';
   alert.style.textAlign = 'center';
   alert.style.backgroundColor = 'red';
-  alert.style.textContent = message;
+  alert.textContent = message;
   document.body.append(alert);
 
   setTimeout(() => {
@@ -54,7 +54,7 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const isNumberInRange = (number, min, max) => (min <= number && number <= max);
+const isNumberInRange = (number, min, max) => min <= number && number <= max;
 
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
@@ -63,7 +63,6 @@ const debounce = (callback, timeoutDelay = 500) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
-
 
 export {
   getTranslationDeclension,

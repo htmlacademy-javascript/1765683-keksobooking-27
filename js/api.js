@@ -1,7 +1,9 @@
+import { showAlert } from './util.js';
+
 const DATA_URL = 'https://27.javascript.pages.academy/keksobooking/data';
 const SERVER_URL = 'https://27.javascript.pages.academy/keksobooking';
 
-const getData = async (onSuccess, onFail) => {
+const getData = async (onSuccess) => {
   try {
     const response = await fetch(DATA_URL);
 
@@ -11,7 +13,7 @@ const getData = async (onSuccess, onFail) => {
     const offers = await response.json();
     onSuccess(offers);
   } catch (error) {
-    onFail(error.message);
+    showAlert(`Не удалось загрузить данные ${error}`);
   }
 };
 
