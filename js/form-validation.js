@@ -1,6 +1,6 @@
 import { resetFilters } from './filter.js';
 import { advertForm, resetForm } from './form.js';
-import { resetCoordinate } from './map.js';
+import { initAddress, resetCoordinate } from './map.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -123,11 +123,12 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
-resetButton.addEventListener('click', () => {
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
   resetForm();
   resetCoordinate();
   resetFilters();
-  
+  initAddress();
 });
 
 const addValidation = () => {
