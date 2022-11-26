@@ -8,18 +8,16 @@ import './filter.js';
 import './photo.js';
 
 import { sendData, getData } from './api.js';
-import { advertForm, enable, disable } from './form.js';
+import { enable, disable, resetForm } from './form.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
-import { setOnFormSubmit, typeField, MIN_PRICE } from './form-validation.js';
+import { setOnFormSubmit } from './form-validation.js';
 import {
-  setMainMarkerCoordinate,
-  CITY_COORDINATES,
+  resetCoordinate,
   setAdPins,
   clearMarkers,
   initAddress,
   onMapLoad,
 } from './map.js';
-import { priceField, priceFieldSlider } from './form-validation.js';
 import { showAlert } from './util.js';
 import {
   filtersContainerElement,
@@ -35,17 +33,6 @@ const onFormDisableState = () => {
 };
 
 onFormDisableState();
-
-const resetForm = () => {
-  advertForm.reset();
-  priceField.value = MIN_PRICE[typeField.value];
-  priceFieldSlider.noUiSlider.set(priceField.value);
-};
-
-const resetCoordinate = () => {
-  setMainMarkerCoordinate();
-  initAddress(CITY_COORDINATES);
-};
 
 const onGetDataSuccess = (offers) => {
   if (offers.length) {

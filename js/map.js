@@ -75,6 +75,12 @@ const setAdPins = (offer) => {
 
 const clearMarkers = () => markerGroup.clearLayers();
 
+const resetCoordinate = () => {
+  setMainMarkerCoordinate();
+  initAddress(CITY_COORDINATES);
+};
+
+
 const onMapLoad = (cb) => {
   map.on('load', () => {
     cb();
@@ -88,5 +94,6 @@ export {
   setAdPins,
   markerGroup,
   clearMarkers,
+  resetCoordinate,
   onMapLoad,
 };
