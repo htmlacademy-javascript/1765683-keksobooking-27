@@ -1,7 +1,11 @@
+import { getData } from './api.js';
 import { resetFilters } from './filter.js';
 import { advertForm, resetForm } from './form.js';
 import { initAddress, resetCoordinate } from './map.js';
-import { resetPhoto, avatarPreview, housePhotoPreview } from './photo.js';
+import { resetPhoto } from './photo.js';
+import { showAlert } from './util.js';
+import { onGetDataSuccess } from './main.js';
+
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -132,6 +136,7 @@ resetButton.addEventListener('click', (evt) => {
   initAddress();
   pristine.reset();
   resetPhoto();
+  getData(onGetDataSuccess, showAlert);
 });
 
 const addValidation = () => {

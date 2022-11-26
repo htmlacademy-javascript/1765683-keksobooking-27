@@ -61,3 +61,5 @@ setOnFormSubmit(async (data) => {
 });
 
 onMapLoad(getData(onGetDataSuccess, showAlert));
+
+export { onGetDataSuccess };
