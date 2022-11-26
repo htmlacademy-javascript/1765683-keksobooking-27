@@ -1,6 +1,7 @@
 import { resetFilters } from './filter.js';
 import { advertForm, resetForm } from './form.js';
 import { initAddress, resetCoordinate } from './map.js';
+import { resetPhoto, avatarPreview, housePhotoPreview } from './photo.js';
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -129,6 +130,8 @@ resetButton.addEventListener('click', (evt) => {
   resetCoordinate();
   resetFilters();
   initAddress();
+  pristine.reset();
+  resetPhoto();
 });
 
 const addValidation = () => {

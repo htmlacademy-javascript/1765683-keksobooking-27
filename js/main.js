@@ -26,6 +26,7 @@ import {
   onChangeFilter,
   resetFilters,
 } from './filter.js';
+import { resetPhoto } from './photo.js';
 
 const onFormDisableState = () => {
   filtersContainerElement.removeEventListener('change', filterWatcher);
@@ -52,6 +53,7 @@ const onSendDataSuccess = () => {
   showSuccessMessage();
   resetFilters();
   initAddress();
+  resetPhoto();
 };
 
 setOnFormSubmit(async (data) => {

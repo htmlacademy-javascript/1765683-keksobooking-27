@@ -1,12 +1,11 @@
-import { advertForm } from './form.js';
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const DEFAULT_AVATAR = 'img/muffin-grey.svg';
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const inputPhoto = document.querySelector('.ad-form__field');
+const avatarPreview = document.querySelector('.ad-form-header__preview');
 
-const inputPhoto = advertForm.querySelector('.ad-form__field');
-const photoPreview = advertForm.querySelector('.ad-form-header__preview');
-
-const housePhotoInput = advertForm.querySelector('.ad-form__upload');
-const housePhotoPreview = advertForm.querySelector('.ad-form__photo');
+const housePhotoInput = document.querySelector('.ad-form__upload');
+const housePhotoPreview = document.querySelector('.ad-form__photo');
 
 const previewUploadedImage = (chooser, preview, isImage) => {
   const file = chooser.files[0];
@@ -20,17 +19,28 @@ const previewUploadedImage = (chooser, preview, isImage) => {
     if (isImage) {
       preview.src = url;
     } else {
-      preview.style.backgroundImage = `url(${url})`;
+      housePhotoPreview.innerHTML = '';
+      const image = document.createElement('img');
+      image.src = url;
+      image.style.maxWidth = '100%';
+      image.style.height = 'auto';
+      housePhotoPreview.append(image);
     }
   }
 };
 
+const resetPhoto = () => {
+  const img = avatarPreview.querySelector('img');
+  img.src = DEFAULT_AVATAR;
+  housePhotoPreview.innerHTML = '';
+};
+
 inputPhoto.addEventListener('change', (evt) => {
-  previewUploadedImage(evt.target, photoPreview.children[0], true);
+  previewUploadedImage(evt.target, avatarPreview.children[0], true);
 });
 
 housePhotoInput.addEventListener('change', (evt) => {
   previewUploadedImage(evt.target, housePhotoPreview);
 });
 
-export { previewUploadedImage };
+export { resetPhoto, avatarPreview, housePhotoPreview };
