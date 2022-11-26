@@ -58,7 +58,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-mainMarker.addTo(map);
+mainMarker.addTo(markerGroup);
 
 mainMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
@@ -71,6 +71,7 @@ const setAdPins = (offer) => {
   });
 
   marker.addTo(markerGroup).bindPopup(getCardItem(offer));
+  mainMarker.addTo(markerGroup);
 };
 
 const clearMarkers = () => markerGroup.clearLayers();
@@ -79,7 +80,6 @@ const resetCoordinate = () => {
   setMainMarkerCoordinate();
   initAddress(CITY_COORDINATES);
 };
-
 
 const onMapLoad = (cb) => {
   map.on('load', () => {
