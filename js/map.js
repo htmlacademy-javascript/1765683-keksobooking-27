@@ -38,8 +38,10 @@ const mainMarker = L.marker(
   }
 );
 
-const setAddress = ({ lat, lng }) => {
-  addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+const initAddress = () => {
+  addressField.value = `${CITY_COORDINATES.lat.toFixed(
+    5
+  )}, ${CITY_COORDINATES.lng.toFixed(5)}`;
 };
 
 const setMainMarkerCoordinate = () => {
@@ -60,16 +62,38 @@ mainMarker.addTo(markerGroup);
 
 mainMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-  addressField.value = `lat: ${lat.toFixed(5)}, lng: ${lng.toFixed(5)}`;
+  addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 });
 
-const setAdPins = (offers) => {
-  offers.forEach((offer) => {
-    const marker = L.marker(offer.location, {
-      similarPinIcon,
-    });
+const setAdPins = (offer) => {
+  const marker = L.marker(offer.location, {
+    icon: similarPinIcon,
+  });
 
-    marker.addTo(map).bindPopup(getCardItem(offer));
+  marker.addTo(markerGroup).bindPopup(getCardItem(offer));
+  mainMarker.addTo(markerGroup);
+};
+
+const clearMarkers = () => markerGroup.clearLayers();
+
+const resetCoordinate = () => {
+  setMainMarkerCoordinate();
+  initAddress(CITY_COORDINATES);
+};
+
+const onMapLoad = (cb) => {
+  map.on('load', () => {
+    cb();
   });
 };
-export { CITY_COORDINATES, setAddress, setMainMarkerCoordinate, setAdPins };
+
+export {
+  CITY_COORDINATES,
+  initAddress,
+  setMainMarkerCoordinate,
+  setAdPins,
+  markerGroup,
+  clearMarkers,
+  resetCoordinate,
+  onMapLoad,
+};

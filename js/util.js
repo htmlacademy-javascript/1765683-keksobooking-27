@@ -1,11 +1,5 @@
 const ALERT_SHOW_TIME = 5000;
 
-const DefaultNumber = {
-  MIN: 0,
-  MAX: 10,
-  EXP: 0,
-};
-
 const TEXT_TRANSLATE = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -26,23 +20,6 @@ const HOUSE_FEATURES = [
 const DECLINATION_GUESTS = ['гостя', 'гостей', 'гостей'];
 
 const DECLINATION_ROOMS = ['комната', 'комнаты', 'комнат'];
-
-const getRandomNumber = (
-  min = DefaultNumber.MIN,
-  max = DefaultNumber.MAX,
-  exp = DefaultNumber.EXP
-) => {
-  if (min < 0 || min > max) {
-    return NaN;
-  }
-
-  const randomNumber = Math.random() * (max - min) + min;
-
-  return randomNumber.toFixed(exp);
-};
-
-const getRandomArrayElement = (elements) =>
-  elements[getRandomNumber(0, elements.length - 1)];
 
 const getTranslationDeclension = (count, array) => {
   if (count < 1) {
@@ -69,7 +46,7 @@ const showAlert = (message) => {
   alert.style.fontSize = '30 px';
   alert.style.textAlign = 'center';
   alert.style.backgroundColor = 'red';
-  alert.style.textContent = message;
+  alert.textContent = message;
   document.body.append(alert);
 
   setTimeout(() => {
@@ -77,11 +54,21 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const isNumberInRange = (number, min, max) => min <= number && number <= max;
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 export {
-  getRandomNumber,
-  getRandomArrayElement,
   getTranslationDeclension,
   showAlert,
+  isNumberInRange,
+  debounce,
   TEXT_TRANSLATE,
   HOUSE_FEATURES,
   DECLINATION_GUESTS,

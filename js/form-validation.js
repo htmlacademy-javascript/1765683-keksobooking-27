@@ -1,4 +1,11 @@
-import { advertForm } from './form.js';
+import { getData } from './api.js';
+import { resetFilters } from './filter.js';
+import { advertForm, resetForm } from './form.js';
+import { initAddress, resetCoordinate } from './map.js';
+import { resetPhoto } from './photo.js';
+import { showAlert } from './util.js';
+import { onGetDataSuccess } from './main.js';
+
 
 const titleField = advertForm.querySelector('#title');
 const priceField = advertForm.querySelector('#price');
@@ -9,6 +16,7 @@ const checkinTime = advertForm.querySelector('#timein');
 const checkoutTime = advertForm.querySelector('#timeout');
 const priceFieldSlider = advertForm.querySelector('#slider');
 const submitButton = advertForm.querySelector('.ad-form__submit');
+const resetButton = advertForm.querySelector('.ad-form__reset');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -120,6 +128,17 @@ const setOnFormSubmit = (cb) => {
   });
 };
 
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+  resetCoordinate();
+  resetFilters();
+  initAddress();
+  pristine.reset();
+  resetPhoto();
+  getData(onGetDataSuccess, showAlert);
+});
+
 const addValidation = () => {
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
@@ -130,4 +149,4 @@ const addValidation = () => {
 
 addValidation(advertForm);
 
-export { setOnFormSubmit, priceField, priceFieldSlider };
+export { setOnFormSubmit, priceField, priceFieldSlider, typeField, MIN_PRICE };
