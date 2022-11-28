@@ -71,7 +71,7 @@ const setAdPins = (offer) => {
   });
 
   marker.addTo(markerGroup).bindPopup(getCardItem(offer));
-  mainMarker.addTo(markerGroup);
+  mainMarker.addTo(map);
 };
 
 const clearMarkers = () => markerGroup.clearLayers();

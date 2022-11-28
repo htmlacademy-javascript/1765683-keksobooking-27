@@ -59,8 +59,9 @@ const renderCardElements = (cardElement, title, address, price, type) => {
     offerAddress.remove();
   }
 
+
   const offerPrice = cardElement.querySelector('.popup__text--price');
-  if (price && price.length) {
+  if (price && price >= 0) {
     offerPrice.textContent = price;
   } else {
     offerPrice.remove();
@@ -72,7 +73,6 @@ const renderCardElements = (cardElement, title, address, price, type) => {
     housingType.textContent = text;
   }
 };
-
 
 const renderFeatures = (cardElement, features) => {
   if (features) {
