@@ -41,6 +41,7 @@ const verifyType = (type) => {
   if (typeElement.value === ANY) {
     return true;
   }
+
   return typeElement.value === type;
 };
 
@@ -48,6 +49,7 @@ const verifyPrice = (price) => {
   if (priceElement.value === ANY) {
     return true;
   }
+
   return isNumberInRange(
     Number(price),
     Price[priceElement.value].MIN,
@@ -59,6 +61,7 @@ const verifyRooms = (rooms) => {
   if (roomsElement.value === ANY) {
     return true;
   }
+
   return Number(roomsElement.value) === rooms;
 };
 
@@ -66,14 +69,11 @@ const verifyGuests = (guests) => {
   if (guestsElement.value === ANY) {
     return true;
   }
+
   return Number(guestsElement.value) === guests;
 };
 
 const verifyFeatures = (features) => {
-  if (!features) {
-    return false;
-  }
-
   const checkedElements = Array.from(featuresCheckBoxesElements).filter(
     (featureElement) => featureElement.checked
   );
@@ -92,7 +92,9 @@ const filterWatcher = debounce(() => {
 
   const filteredOffers = getCurrentData();
 
-  filteredOffers.forEach((offer) => setAdPins(offer));
+  filteredOffers.forEach((offer) => {
+    setAdPins(offer);
+  });
 }, RENDER_DELAY);
 
 const onChangeFilter = (cb) => {
